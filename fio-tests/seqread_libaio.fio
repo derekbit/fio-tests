@@ -1,0 +1,9 @@
+[global]
+name=fio-file
+filename=testfile
+rw=read
+ioengine=libaio
+numjobs=1
+time_based=1
+
+[seqread-libaio]
