@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Defaults
-RAMP_TIME=30
+RAMP_TIME=60
 RUNTIME=120
 LOOPS=3
 IODEPTH=64
@@ -42,7 +42,7 @@ run_test()
 
     drop_cache
 
-    fio --directory="$TEST_DIR" --ramp_time=$RAMP_TIME --runtime=$RUNTIME --iodepth=$IODEPTH --size="$SIZE" --direct=$DIRECT --blocksize="$BLOCKSIZE" --numjobs=$NUMJOBS --ioengine=libaio --output "$OUTPUT_DIR/$OUTPUT" --output-format=json "$JOB_FILE"
+    perf record -D 60000 -o ${TEST_DIR}/`basename ${JOB_FILE}`.perf fio --directory="$TEST_DIR" --ramp_time=$RAMP_TIME --runtime=$RUNTIME --iodepth=$IODEPTH --size="$SIZE" --direct=$DIRECT --blocksize="$BLOCKSIZE" --numjobs=$NUMJOBS --ioengine=libaio --output "$OUTPUT_DIR/$OUTPUT" --output-format=json "$JOB_FILE"
 }
 
 usage()
